@@ -27,19 +27,19 @@ Use composer :
 
 - **Using PHP CLI** :
 
-[1.] Check version CLI
+1. Check version CLI
 
 ```php virtual --version``` / ```php virtual -v```
 
-[2.] Migrate Table MySQL
+2. Migrate Table MySQL
 
 ```php virtual --migrate``` / ```php virtual -m```
 
-[3.] Drop Table MySQL
+3. Drop Table MySQL
 
 ```php virtual --drop``` / ```php virtual -d```
 
-[4.] Serve apps
+4. Serve apps
 
 ```php virtual --serve``` / ```php virtual -s```
 
