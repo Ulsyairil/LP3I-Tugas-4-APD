@@ -1,0 +1,45 @@
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/database/migrate.php';
+require_once __DIR__ . '/database/drop.php';
+
+use splitbrain\phpcli\CLI;
+use splitbrain\phpcli\Options;
+use Database\Migrate;
+use Database\Drop;
+
+class Minimal extends CLI
+{
+    // register options and arguments
+    protected function setup(Options $options)
+    {
+        $options->setHelp('CLI for easier deploy server and web, also migrate and drop table');
+        $options->registerOption('version', 'print version', 'v');
+        $options->registerOption('migrate', 'migrate table', 'm');
+        $options->registerOption('drop', 'drop table', 'd');
+        $options->registerOption('serve', 'serve apps', 's');
+    }
+
+    // implement your code
+    protected function main(Options $options)
+    {
+        if ($options->getOpt('version')) {
+            $this->info('0.0.1');
+        } elseif ($options->getOpt('migrate')) {
+            Migrate::migrate();
+        } elseif ($options->getOpt('drop')) {
+            Drop::drop();
+        } elseif ($options->getOpt('serve')) {
+            $this->info("Open with REST client or browser :");
+            $this->info("Api endpoint : http://localhost:8000/api");
+            $this->info("Web : http://localhost:8000");
+            exec("php -S localhost:8000");
+        } else {
+            echo $options->help();
+        }
+    }
+}
+// execute it
+$cli = new Minimal();
+$cli->run();
