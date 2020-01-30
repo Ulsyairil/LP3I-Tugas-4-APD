@@ -25,6 +25,24 @@ Use composer :
 
 ## Usage
 
+- **Using PHP CLI** :
+
+[1.] Check version CLI
+
+```php virtual --version``` / ```php virtual -v```
+
+[2.] Migrate Table MySQL
+
+```php virtual --migrate``` / ```php virtual -m```
+
+[3.] Drop Table MySQL
+
+```php virtual --drop``` / ```php virtual -d```
+
+[4.] Serve apps
+
+```php virtual --serve``` / ```php virtual -s```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
