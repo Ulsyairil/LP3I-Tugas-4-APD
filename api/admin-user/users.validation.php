@@ -5,7 +5,6 @@ namespace Api\AdminUser;
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../helpers/unique.helpers.php';
 
-use Exception;
 use Rakit\Validation\Validator;
 use UniqueRule;
 
@@ -16,13 +15,14 @@ class AdminUsersValidation
         $validator = new Validator;
         $validator->addValidator('unique', new UniqueRule());
         $rules  = [
+            'nama_lengkap' => 'required|max:255',
             'username' => 'required|max:50|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
-            'nama_lengkap' => 'required|max:255',
-            'kartu_pengenal' => 'required|in:ktp,sim,paspor',
-            'no_kartu' => 'required|numeric|unique:users,no_kartu'
+            'gender' => 'required|in:pria,wanita',
+            'tanda_pengenal' => 'required|in:ktp,sim,paspor',
+            'no_tanda_pengenal' => 'required|numeric|unique:user_details,no_tanda_pengenal'
         ];
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'POST':
@@ -33,7 +33,7 @@ class AdminUsersValidation
                 $rules = [];
                 $rules['username'] = 'required|max:50';
                 $rules['email'] = 'required|email|max:255';
-                $rules['no_kartu'] = 'required|numeric';
+                $rules['no_tanda_pengenal'] = 'required|numeric';
                 break;
 
             default:

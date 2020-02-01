@@ -14,6 +14,7 @@ class Drop
         try {
             $database = Database::mysql();
             $drop = [
+                $database->drop('user_details'),
                 $database->drop('users'),
             ];
             if (!$drop) {

@@ -4,28 +4,35 @@ require_once __DIR__ . '/../../config/database.php';
 
 use Config\Database;
 
-function CreateUsersTable()
+function CreateUserDetailsTable()
 {
     $database = Database::mysql();
-    $create = $database->create("users", [
+    $create = $database->create("user_details", [
         "id" => [
             "BIGINT",
             "NOT NULL",
             "AUTO_INCREMENT",
             "PRIMARY KEY"
         ],
-        "username" => [
-            "VARCHAR(50)",
+        "user_id" => [
+            "BIGINT",
             "NOT NULL",
             "UNIQUE"
         ],
-        "email" => [
+        "nama_lengkap" => [
             "VARCHAR(255)",
-            "NOT NULL",
-            "UNIQUE"
+            "NOT NULL"
         ],
-        "password" => [
-            "TEXT",
+        "gender" => [
+            "ENUM('pria','wanita')",
+            "NOT NULL"
+        ],
+        "tanda_pengenal" => [
+            "ENUM('ktp','sim','paspor')",
+            "NOT NULL"
+        ],
+        "no_tanda_pengenal" => [
+            "VARCHAR(20)",
             "NOT NULL"
         ],
         "created_at" => [
@@ -37,7 +44,8 @@ function CreateUsersTable()
         ],
         "deleted_at" => [
             "DATETIME"
-        ]
+        ],
+        "FOREIGN KEY (<user_id>) REFERENCES users(<id>)"
     ]);
     if (!$create) {
         throw new Exception($database->error());
